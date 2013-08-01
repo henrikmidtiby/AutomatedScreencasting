@@ -17,6 +17,7 @@ ifeq ($(ENOUGH_SPACE), EnoughSpace)
 	@echo "Stop recording by pressing \"Crtl+Alt+q\""
 	@recordmydesktop --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
 	@echo $(LOGFILE)
+	ffmpeg -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 16384 $(LOGFILE)/screencasttemp.ogv
 else
 	@echo "Not enough space"
 endif
@@ -25,7 +26,7 @@ firstpart:
 	# Parameters
 	# -ss starttime
 	# -t endtime
-	ffmpeg -i screencast.ogv -vcodec copy -dialnorm -1 -acodec copy -ss 00:00:03 -t 00:32:20 01partOne.ogv
+	ffmpeg -i screencast.ogv -vcodec copy -acodec copy -ss 00:00:03 -t 00:32:20 01partOne.ogv
 
 secondpart:
 	# Parameters
@@ -38,4 +39,5 @@ convertffmpeg:
 
 convertmencoder:
 	mencoder screencast.ogv -vc theora -ovc x264 -oac mp3lame -o screencastmencoder.avi
+
 
