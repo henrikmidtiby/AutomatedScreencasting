@@ -1,4 +1,4 @@
-LOGFILE = $(shell date +'%Y-%m-%d_%H:%M')
+LOGFILE = $(shell date +'%Y-%m-%d_%H:%M:%S')
 # Freespace hardcoded to look at /dev/sda5.
 FREESPACE = $(shell df -k . | awk 'NR==2{print$$4}')
 REQUIRED_FREE_SPACE = 100000
