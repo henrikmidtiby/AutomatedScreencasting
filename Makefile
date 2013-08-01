@@ -15,7 +15,7 @@ ifeq ($(ENOUGH_SPACE), EnoughSpace)
 	@cp Makefile $(LOGFILE)/Makefile
 	##recordmydesktop --v_quality 20 --s_quality 10 --delay 3 --fps 10 --device plughw:0,0 -o $(LOGFILE)/screencast.ogv
 	@echo "Stop recording by pressing \"Crtl+Alt+q\""
-	@recordmydesktop --v_quality 20 --s_quality 10 --delay 3 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
+	@recordmydesktop --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
 	@echo $(LOGFILE)
 else
 	@echo "Not enough space"
