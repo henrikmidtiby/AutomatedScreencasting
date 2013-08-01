@@ -25,7 +25,7 @@ firstpart:
 	# Parameters
 	# -ss starttime
 	# -t endtime
-	ffmpeg -i screencast.ogv -vcodec copy -acodec copy -ss 00:00:03 -t 00:32:20 01partOne.ogv
+	ffmpeg -i screencast.ogv -vcodec copy -dialnorm -1 -acodec copy -ss 00:00:03 -t 00:32:20 01partOne.ogv
 
 secondpart:
 	# Parameters
