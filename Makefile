@@ -17,7 +17,8 @@ ifeq ($(ENOUGH_SPACE), EnoughSpace)
 	@echo "Stop recording by pressing \"Crtl+Alt+q\""
 	@recordmydesktop --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
 	@echo $(LOGFILE)
-	ffmpeg -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 16384 $(LOGFILE)/screencasttemp.ogv
+	#ffmpeg -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 16384 $(LOGFILE)/screencasttemp.ogv
+	ffmpeg -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 1024 $(LOGFILE)/screencasttemp.ogv
 else
 	@echo "Not enough space"
 endif
