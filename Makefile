@@ -3,6 +3,7 @@ LOGFILE := $(shell date +'%Y-%m-%d_%H:%M:%S')
 FREESPACE := $(shell df -k . | awk 'NR==2{print$$4}')
 REQUIRED_FREE_SPACE := 100000
 ENOUGH_SPACE := $(shell if [ $(FREESPACE) -ge $(REQUIRED_FREE_SPACE) ]; then echo "EnoughSpace"; else echo "NotEnoughSpace"; fi)
+FULLSCREEN := false
 
 gimp:
 	gimp blackscreen.png &
@@ -13,11 +14,13 @@ ifeq ($(ENOUGH_SPACE), EnoughSpace)
 	@echo $(LOGFILE)
 	@mkdir $(LOGFILE)
 	@cp Makefile $(LOGFILE)/Makefile
-	##recordmydesktop --v_quality 20 --s_quality 10 --delay 3 --fps 10 --device plughw:0,0 -o $(LOGFILE)/screencast.ogv
 	@echo "Stop recording by pressing \"Crtl+Alt+q\""
+ifeq ($(FULLSCREEN), true)
 	@recordmydesktop --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
+else
+	@recordmydesktop -x 0 -y 0 --width 1680 --height  1050 --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
+endif
 	@echo $(LOGFILE)
-	#ffmpeg -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 16384 $(LOGFILE)/screencasttemp.ogv
 	ffmpeg -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 1024 $(LOGFILE)/screencasttemp.ogv
 else
 	@echo "Not enough space"
