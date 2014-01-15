@@ -27,7 +27,7 @@ else
 	@echo "Not enough space"
 endif
 
-screencastcropped:
+croppedscreencast:
 	@# Check for enough diskspace (> 100MB)
 ifeq ($(ENOUGH_SPACE), EnoughSpace)
 	@echo $(LOGFILE)
