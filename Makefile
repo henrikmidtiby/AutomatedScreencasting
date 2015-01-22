@@ -5,6 +5,7 @@ REQUIRED_FREE_SPACE := 100000
 ENOUGH_SPACE := $(shell if [ $(FREESPACE) -ge $(REQUIRED_FREE_SPACE) ]; then echo "EnoughSpace"; else echo "NotEnoughSpace"; fi)
 FULLSCREEN := false
 
+
 gimp:
 	gimp blackscreen.png &
 
@@ -23,6 +24,7 @@ else
 endif
 	@echo $(LOGFILE)
 	ffmpeg -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 1024 $(LOGFILE)/screencasttemp.ogv
+	python ../silenceremover.py
 else
 	@echo "Not enough space"
 endif
@@ -42,6 +44,7 @@ else
 endif
 	@echo $(LOGFILE)
 	ffmpeg -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 1024 $(LOGFILE)/screencasttemp.ogv
+	python ../silenceremover.py
 else
 	@echo "Not enough space"
 endif
