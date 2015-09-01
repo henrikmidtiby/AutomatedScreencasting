@@ -23,7 +23,7 @@ else
 	#@recordmydesktop -x 0 -y 0 --width 1680 --height  1050 --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
 endif
 	@echo $(LOGFILE)
-	ffmpeg -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 1024 $(LOGFILE)/screencasttemp.ogv
+	avconv -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 1024 $(LOGFILE)/screencasttemp.ogv
 	python ../silenceremover.py
 else
 	@echo "Not enough space"
@@ -43,7 +43,7 @@ else
 	#@recordmydesktop -x 0 -y 0 --width 1680 --height  1050 --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
 endif
 	@echo $(LOGFILE)
-	ffmpeg -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 1024 $(LOGFILE)/screencasttemp.ogv
+	avconv -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 1024 $(LOGFILE)/screencasttemp.ogv
 	python ../silenceremover.py
 else
 	@echo "Not enough space"
@@ -53,16 +53,16 @@ firstpart:
 	# Parameters
 	# -ss starttime
 	# -t endtime
-	ffmpeg -i screencast.ogv -vcodec copy -acodec copy -ss 00:00:03 -t 00:32:20 01partOne.ogv
+	avconv -i screencast.ogv -vcodec copy -acodec copy -ss 00:00:03 -t 00:32:20 01partOne.ogv
 
 secondpart:
 	# Parameters
 	# -ss starttime
 	# -t endtime
-	ffmpeg -i screencast.ogv -vcodec copy -acodec copy -ss 00:12:20 -t 00:22:20 02partTwo.ogv
+	avconv -i screencast.ogv -vcodec copy -acodec copy -ss 00:12:20 -t 00:22:20 02partTwo.ogv
 
-convertffmpeg: 
-	ffmpeg -i screencast.ogv -vcodec mpeg4 -sameq -acodec libmp3lame screencastffmpeg.avi
+convertavconv: 
+	avconv -i screencast.ogv -vcodec mpeg4 -sameq -acodec libmp3lame screencastavconv.avi
 
 convertmencoder:
 	mencoder screencast.ogv -vc theora -ovc x264 -oac mp3lame -o screencastmencoder.avi
