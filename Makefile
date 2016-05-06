@@ -17,11 +17,13 @@ else
 	exit 1
 endif
 
-screencast: enough_space
+prepare_screencasting:
 	@echo $(LOGFILE)
 	@mkdir $(LOGFILE)
 	@cp Makefile $(LOGFILE)/Makefile
 	@echo "Stop recording by pressing \"Crtl+Alt+q\""
+
+screencast: enough_space prepare_screencasting
 ifeq ($(FULLSCREEN), true)
 	@recordmydesktop --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
 else
@@ -31,11 +33,7 @@ endif
 	@echo $(LOGFILE)
 	avconv -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 512 $(LOGFILE)/screencasttemp.ogv
 
-croppedscreencast: enough_space
-	@echo $(LOGFILE)
-	@mkdir $(LOGFILE)
-	@cp Makefile $(LOGFILE)/Makefile
-	@echo "Stop recording by pressing \"Crtl+Alt+q\""
+croppedscreencast: enough_space prepare_screencasting
 ifeq ($(FULLSCREEN), true)
 	@recordmydesktop --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
 else
