@@ -30,7 +30,6 @@ else
 endif
 	@echo $(LOGFILE)
 	avconv -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 512 $(LOGFILE)/screencasttemp.ogv
-	#python ../silenceremover.py
 
 croppedscreencast: enough_space
 	@echo $(LOGFILE)
@@ -45,5 +44,4 @@ else
 endif
 	@echo $(LOGFILE)
 	avconv -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 512 $(LOGFILE)/screencasttemp.ogv
-	#python ../silenceremover.py
 
