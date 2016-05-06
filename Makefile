@@ -10,7 +10,7 @@ gimp:
 	gimp blackscreen.png &
 
 enough_space:
-	@# Check for enough diskspace (> 100MB)
+	@# Check for enough free discspace (> 100MB)
 ifeq ($(ENOUGH_SPACE), EnoughSpace)
 else
 	@echo "Not enough space"
@@ -35,8 +35,10 @@ endif
 
 croppedscreencast: enough_space prepare_screencasting
 ifeq ($(FULLSCREEN), true)
-	@recordmydesktop --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
+	# Recording area matches the canvas area in gimp using the builtin LDC display.
+	@recordmydesktop -x 110 -y 90 --width 1190 --height  750 --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
 else
+	# Recording area matches the canvas area in gimp using an external screen.
 	@recordmydesktop -x 1710 -y 90 --width 1350 --height  850 --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
 	#@recordmydesktop -x 0 -y 0 --width 1680 --height  1050 --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
 endif
