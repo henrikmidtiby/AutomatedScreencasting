@@ -47,22 +47,3 @@ endif
 	avconv -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 512 $(LOGFILE)/screencasttemp.ogv
 	#python ../silenceremover.py
 
-firstpart:
-	# Parameters
-	# -ss starttime
-	# -t endtime
-	avconv -i screencast.ogv -vcodec copy -acodec copy -ss 00:00:03 -t 00:32:20 01partOne.ogv
-
-secondpart:
-	# Parameters
-	# -ss starttime
-	# -t endtime
-	avconv -i screencast.ogv -vcodec copy -acodec copy -ss 00:12:20 -t 00:22:20 02partTwo.ogv
-
-convertavconv: 
-	avconv -i screencast.ogv -vcodec mpeg4 -sameq -acodec libmp3lame screencastavconv.avi
-
-convertmencoder:
-	mencoder screencast.ogv -vc theora -ovc x264 -oac mp3lame -o screencastmencoder.avi
-
-
