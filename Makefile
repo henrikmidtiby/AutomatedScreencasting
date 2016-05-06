@@ -23,8 +23,8 @@ else
 	#@recordmydesktop -x 0 -y 0 --width 1680 --height  1050 --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
 endif
 	@echo $(LOGFILE)
-	avconv -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 1024 $(LOGFILE)/screencasttemp.ogv
-	python ../silenceremover.py
+	avconv -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 512 $(LOGFILE)/screencasttemp.ogv
+	#python ../silenceremover.py
 else
 	@echo "Not enough space"
 endif
@@ -43,8 +43,8 @@ else
 	#@recordmydesktop -x 0 -y 0 --width 1680 --height  1050 --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q
 endif
 	@echo $(LOGFILE)
-	avconv -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 1024 $(LOGFILE)/screencasttemp.ogv
-	python ../silenceremover.py
+	avconv -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 512 $(LOGFILE)/screencasttemp.ogv
+	#python ../silenceremover.py
 else
 	@echo "Not enough space"
 endif
