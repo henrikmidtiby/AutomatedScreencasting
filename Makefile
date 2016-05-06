@@ -9,9 +9,15 @@ FULLSCREEN := false
 gimp:
 	gimp blackscreen.png &
 
-screencast:
+enough_space:
 	@# Check for enough diskspace (> 100MB)
 ifeq ($(ENOUGH_SPACE), EnoughSpace)
+else
+	@echo "Not enough space"
+	exit 1
+endif
+
+screencast: enough_space
 	@echo $(LOGFILE)
 	@mkdir $(LOGFILE)
 	@cp Makefile $(LOGFILE)/Makefile
@@ -25,13 +31,8 @@ endif
 	@echo $(LOGFILE)
 	avconv -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 512 $(LOGFILE)/screencasttemp.ogv
 	#python ../silenceremover.py
-else
-	@echo "Not enough space"
-endif
 
-croppedscreencast:
-	@# Check for enough diskspace (> 100MB)
-ifeq ($(ENOUGH_SPACE), EnoughSpace)
+croppedscreencast: enough_space
 	@echo $(LOGFILE)
 	@mkdir $(LOGFILE)
 	@cp Makefile $(LOGFILE)/Makefile
@@ -45,9 +46,6 @@ endif
 	@echo $(LOGFILE)
 	avconv -i $(LOGFILE)/screencast.ogv -vcodec copy  -vol 512 $(LOGFILE)/screencasttemp.ogv
 	#python ../silenceremover.py
-else
-	@echo "Not enough space"
-endif
 
 firstpart:
 	# Parameters
