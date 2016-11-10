@@ -4,7 +4,7 @@ FREESPACE := $(shell df -k . | awk 'NR==2{print$$4}')
 REQUIRED_FREE_SPACE := 100000
 ENOUGH_SPACE := $(shell if [ $(FREESPACE) -ge $(REQUIRED_FREE_SPACE) ]; then echo "EnoughSpace"; else echo "NotEnoughSpace"; fi)
 RECORDMYDESKTOP_PARAMERES := --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q 
-POST_PROCESS_VIDEO := avconv -i $(LOGFILE)/screencast.ogv -vcodec h264 -acodec copy -strict experimental -af volume=volume=12dB $(LOGFILE)/screencasttemp.mp4
+POST_PROCESS_VIDEO := avconv -i $(LOGFILE)/screencast.ogv -vcodec h264 -strict experimental -af volume=volume=12dB $(LOGFILE)/screencasttemp.mp4
 USE_BUILTIN_SCREEN := true
 
 gimp:
