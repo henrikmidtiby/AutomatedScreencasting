@@ -38,7 +38,8 @@ internalfullscreen: enough_space prepare_screencasting
 
 externalcroppedscreencast: enough_space prepare_screencasting
 	@# Recording area matches the canvas area in gimp using an external screen.
-	@recordmydesktop -x 1710 -y 90 --width 1350 --height  850 $(RECORDMYDESKTOP_PARAMERES)
+	# @recordmydesktop -x 1710 -y 90 --width 1350 --height  850 $(RECORDMYDESKTOP_PARAMERES)
+	@recordmydesktop -x 1980 -y 90 --width 2200 --height  1238 $(RECORDMYDESKTOP_PARAMERES)
 	@echo $(LOGFILE)
 	$(POST_PROCESS_VIDEO)
 
