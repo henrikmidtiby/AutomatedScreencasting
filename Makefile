@@ -8,7 +8,7 @@ POST_PROCESS_VIDEO := avconv -i $(LOGFILE)/screencast.ogv -vcodec h264 -strict e
 USE_BUILTIN_SCREEN := true
 
 gimp:
-	gimp blackscreen.png &
+	gimp blackscreen.xcf &
 
 enough_space:
 	@# Check for enough free discspace (> 100MB)
