@@ -4,7 +4,7 @@ FREESPACE := $(shell df -k . | awk 'NR==2{print$$4}')
 REQUIRED_FREE_SPACE := 100000
 ENOUGH_SPACE := $(shell if [ $(FREESPACE) -ge $(REQUIRED_FREE_SPACE) ]; then echo "EnoughSpace"; else echo "NotEnoughSpace"; fi)
 RECORDMYDESKTOP_PARAMERES := --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q 
-POST_PROCESS_VIDEO := avconv -i $(LOGFILE)/screencast.ogv -vcodec h264 -strict experimental -af volume=volume=12dB $(LOGFILE)/screencasttemp.mp4
+POST_PROCESS_VIDEO := ffmpeg -i $(LOGFILE)/screencast.ogv -vcodec h264 -strict experimental -af volume=volume=12dB $(LOGFILE)/screencasttemp.mp4
 USE_BUILTIN_SCREEN := true
 
 gimp:
@@ -26,7 +26,7 @@ prepare_screencasting:
 
 externalfullscreen: enough_space prepare_screencasting
 	@# Recording area is the entire external screen.
-	@recordmydesktop -x 1680 -y 0 --width 1680 --height  1050 $(RECORDMYDESKTOP_PARAMERES)
+	@recordmydesktop -x 1920 -y 0 --width 2560 --height  1440 $(RECORDMYDESKTOP_PARAMERES)
 	@echo $(LOGFILE)
 	$(POST_PROCESS_VIDEO)
 
@@ -39,7 +39,7 @@ internalfullscreen: enough_space prepare_screencasting
 externalcroppedscreencast: enough_space prepare_screencasting
 	@# Recording area matches the canvas area in gimp using an external screen.
 	# @recordmydesktop -x 1710 -y 90 --width 1350 --height  850 $(RECORDMYDESKTOP_PARAMERES)
-	@recordmydesktop -x 1980 -y 90 --width 2200 --height  1238 $(RECORDMYDESKTOP_PARAMERES)
+	@recordmydesktop -x 1980 -y 130 --width 2200 --height  1238 $(RECORDMYDESKTOP_PARAMERES)
 	@echo $(LOGFILE)
 	$(POST_PROCESS_VIDEO)
 
