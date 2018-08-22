@@ -8,6 +8,7 @@ POST_PROCESS_VIDEO := ffmpeg -i $(LOGFILE)/screencast.ogv -vcodec h264 -strict e
 ADD_BLACK_LOGO := ffmpeg -i $(LOGFILE)/screencast.ogv -i sdu-logo-black-with-border-small.png -filter_complex "overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)" $(LOGFILE)/video_with_black_logo.mp4
 ADD_WHITE_LOGO := ffmpeg -i $(LOGFILE)/screencast.ogv -i sdu-logo-white-with-border-small.png -filter_complex "overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)" $(LOGFILE)/video_with_white_logo.mp4
 USE_BUILTIN_SCREEN := true
+LVDS_RECORDING_AREA := $(shell xrandr | grep LVDS | sed 's/LVDS-0 connected \([0-9]*\)x\([0-9]*\)+\([0-9]*\)+\([0-9]*\).*/-x \3 -y \4 --width \1 --height \2/')
 
 gimp:
 	gimp blackscreen.xcf &
@@ -35,7 +36,7 @@ externalfullscreen: enough_space prepare_screencasting
 
 internalfullscreen: enough_space prepare_screencasting
 	@# Recording area is the entire builtin LDC display.
-	@recordmydesktop $(RECORDMYDESKTOP_PARAMERES)
+	recordmydesktop $(LVDS_RECORDING_AREA) $(RECORDMYDESKTOP_PARAMERES)
 	@echo $(LOGFILE)
 	$(ADD_BLACK_LOGO)
 	$(ADD_WHITE_LOGO)
