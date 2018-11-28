@@ -9,6 +9,7 @@ ADD_BLACK_LOGO := ffmpeg -i $(LOGFILE)/screencast.ogv -i sdu-logo-black-with-bor
 ADD_WHITE_LOGO := ffmpeg -i $(LOGFILE)/screencast.ogv -i sdu-logo-white-with-border-small.png -filter_complex "overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)" $(LOGFILE)/video_with_white_logo.mp4
 USE_BUILTIN_SCREEN := true
 LVDS_RECORDING_AREA := $(shell xrandr | grep LVDS | sed 's/LVDS-0 connected \([0-9]*\)x\([0-9]*\)+\([0-9]*\)+\([0-9]*\).*/-x \3 -y \4 --width \1 --height \2/')
+DP21_RECORDING_AREA := $(shell xrandr | grep DP-2-1 | sed 's/DP-2-1 connected primary \([0-9]*\)x\([0-9]*\)+\([0-9]*\)+\([0-9]*\).*/-x \3 -y \4 --width \1 --height \2/')
 
 gimp:
 	gimp blackscreen.xcf &
@@ -29,7 +30,7 @@ prepare_screencasting:
 
 externalfullscreen: enough_space prepare_screencasting
 	@# Recording area is the entire external screen.
-	@recordmydesktop -x 1920 -y 0 --width 2560 --height  1440 $(RECORDMYDESKTOP_PARAMERES)
+	@recordmydesktop $(DP21_RECORDING_AREA) $(RECORDMYDESKTOP_PARAMERES)
 	@echo $(LOGFILE)
 	$(POST_PROCESS_VIDEO)
 	$(ADD_BLACK_LOGO)
