@@ -5,8 +5,8 @@ REQUIRED_FREE_SPACE := 100000
 ENOUGH_SPACE := $(shell if [ $(FREESPACE) -ge $(REQUIRED_FREE_SPACE) ]; then echo "EnoughSpace"; else echo "NotEnoughSpace"; fi)
 RECORDMYDESKTOP_PARAMERES := --v_quality 63 --s_quality 10 --delay 1 --fps 10 -o $(LOGFILE)/screencast.ogv --stop-shortcut Control+Mod1+q 
 POST_PROCESS_VIDEO := ffmpeg -i $(LOGFILE)/screencast.ogv -vcodec h264 -strict experimental -max_muxing_queue_size 400 -af volume=volume=12dB $(LOGFILE)/screencasttemp.mp4
-ADD_BLACK_LOGO := ffmpeg -i $(LOGFILE)/screencast.ogv -i sdu-logo-black-with-border-small.png -filter_complex "overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)" $(LOGFILE)/video_with_black_logo.mp4
-ADD_WHITE_LOGO := ffmpeg -i $(LOGFILE)/screencast.ogv -i sdu-logo-white-with-border-small.png -filter_complex "overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)" $(LOGFILE)/video_with_white_logo.mp4
+ADD_BLACK_LOGO := ffmpeg -i $(LOGFILE)/screencast.ogv -i sdu-logo-black-with-border-small.png -filter_complex "overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)" -max_muxing_queue_size 4000 $(LOGFILE)/video_with_black_logo.mp4
+ADD_WHITE_LOGO := ffmpeg -i $(LOGFILE)/screencast.ogv -i sdu-logo-white-with-border-small.png -filter_complex "overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)" -max_muxing_queue_size 4000 $(LOGFILE)/video_with_white_logo.mp4
 USE_BUILTIN_SCREEN := true
 LVDS_RECORDING_AREA := $(shell xrandr | grep LVDS | sed 's/LVDS-0 connected \([0-9]*\)x\([0-9]*\)+\([0-9]*\)+\([0-9]*\).*/-x \3 -y \4 --width \1 --height \2/')
 DP21_RECORDING_AREA := $(shell xrandr | grep DP-2-1 | sed 's/DP-2-1 connected primary \([0-9]*\)x\([0-9]*\)+\([0-9]*\)+\([0-9]*\).*/-x \3 -y \4 --width \1 --height \2/')
