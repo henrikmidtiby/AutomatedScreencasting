@@ -10,7 +10,7 @@ gimp:
 	gimp blackscreen.xcf &
 
 enough_space:
-	@# Check for enough free discspace (> 100MB)
+	@echo "Check for enough free discspace (> 100MB)"
 ifeq ($(ENOUGH_SPACE), EnoughSpace)
 else
 	@echo "Not enough space"
@@ -20,14 +20,12 @@ endif
 prepare_screencasting: enough_space
 	@echo "prepare_screencasting"
 	$(eval LOGFILE := "$(shell date +'%Y-%m-%d_%H.%M.%S') $(shell zenity --entry --text='Video emne' )")
-	@echo "LOGFILE = $(LOGFILE) in $@"
 	@mkdir $(LOGFILE)
 	@cp Makefile $(LOGFILE)/Makefile
 	@echo "Stop recording by pressing \"Crtl+Alt+q\""
 
 externalfullscreen: prepare_screencasting
 	@echo "externalfullscreen"
-	@echo "LOGFILE = $(LOGFILE) in $@"
 	# Recording area is the entire external screen.
 	@recordmydesktop $(DP21_RECORDING_AREA) $(RECORDMYDESKTOP_PARAMERES)
 	cd $(LOGFILE) && make screencasttemp.mp4
@@ -37,7 +35,6 @@ externalfullscreen: prepare_screencasting
 internalfullscreen: prepare_screencasting
 	# Recording area is the entire builtin LDC display.
 	recordmydesktop $(LVDS_RECORDING_AREA) $(RECORDMYDESKTOP_PARAMERES)
-	@echo "LOGFILE = $(LOGFILE) in $@"
 	cd $(LOGFILE) && make screencasttemp.mp4
 	cd $(LOGFILE) && make video_with_black_sdu_logo.mp4
 	cd $(LOGFILE) && make video_with_white_sdu_logo.mp4
@@ -46,7 +43,6 @@ externalcroppedscreencast: prepare_screencasting
 	# Recording area matches the canvas area in gimp using an external screen.
 	# @recordmydesktop -x 1710 -y 90 --width 1350 --height  850 $(RECORDMYDESKTOP_PARAMERES)
 	@recordmydesktop -x 1980 -y 130 --width 2200 --height  1238 $(RECORDMYDESKTOP_PARAMERES)
-	@echo "LOGFILE = $(LOGFILE) in $@"
 	cd $(LOGFILE) && make screencasttemp.mp4
 	cd $(LOGFILE) && make video_with_black_sdu_logo.mp4
 	cd $(LOGFILE) && make video_with_white_sdu_logo.mp4
@@ -54,7 +50,6 @@ externalcroppedscreencast: prepare_screencasting
 internalcroppedscreencast: prepare_screencasting
 	# Recording area matches the canvas area in gimp using the builtin LDC display.
 	@recordmydesktop -x 26 -y 80 --width 1232 --height  768 $(RECORDMYDESKTOP_PARAMERES)
-	@echo "LOGFILE = $(LOGFILE) in $@"
 	cd $(LOGFILE) && make screencasttemp.mp4
 	cd $(LOGFILE) && make video_with_black_sdu_logo.mp4
 	cd $(LOGFILE) && make video_with_white_sdu_logo.mp4
