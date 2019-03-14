@@ -40,7 +40,7 @@ internalfullscreen_helper: prepare_screencasting
 externalcroppedscreencast_helper: prepare_screencasting
 	# Recording area matches the canvas area in gimp using an external screen.
 	# @recordmydesktop -x 1710 -y 90 --width 1350 --height  850 $(RECORDMYDESKTOP_PARAMETERS)
-	@recordmydesktop -x 1980 -y 130 --width 2200 --height  1238 $(RECORDMYDESKTOP_PARAMETERS)
+	@recordmydesktop -x 100 -y 130 --width 2200 --height  1238 $(RECORDMYDESKTOP_PARAMETERS)
 
 internalcroppedscreencast_helper: prepare_screencasting
 	# Recording area matches the canvas area in gimp using the builtin LDC display.
@@ -50,7 +50,7 @@ externalfullscreen: externalfullscreen_helper post_process_video
 
 internalfullscreen: internalfullscreen_helper post_process_video
 
-externalcroppedscreencast: externalfullscreen_helper post_process_video
+externalcroppedscreencast: externalcroppedscreencast_helper post_process_video
 
 internalcroppedscreencast: internalcroppedscreencast_helper post_process_video
 
